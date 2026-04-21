@@ -925,6 +925,8 @@ void Result::printToCsvFile(ofstream &outputFile) {
     } else {
         outputFile << "0,";
     }
+	outputFile << bank->mat.readLatency * 1e9 << "," << bank->mat.writeLatency * 1e9 << ",";
+	outputFile << bank->mat.subarray.readLatency * 1e9 << "," << bank->mat.subarray.writeLatency * 1e9 << ",";
 	outputFile << bank->readDynamicEnergy * 1e12 << "," << bank->writeDynamicEnergy * 1e12 << ",";
     if (cell->memCellType == eDRAM) {
         outputFile << bank->refreshDynamicEnergy * 1e12 << ",";
