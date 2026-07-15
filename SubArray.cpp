@@ -896,6 +896,21 @@ void SubArray::PrintProperty() {
 	cout << "columnDecoderLatency: " << columnDecoderLatency*1e12 << "ps" << endl;
 }
 
+void SubArray::PrintAreaBreakdown() {
+	/* Per-component subarray areas [um^2] for opt/calibrate_periph.py. Emitted on
+	 * stderr so the normal stdout report (parsed by opt/xvalidate) stays untouched.
+	 * area = full subarray footprint; the BL-strip periphery (precharger + muxes +
+	 * mux decoders) is recovered downstream as area - cells - rowdec - senseamp. */
+	cerr << "PERIPHFIT"
+	     << " numRow=" << numRow
+	     << " numColumn=" << numColumn
+	     << " subarray_um2=" << area * 1e12
+	     << " cells_um2=" << lenWordline * lenBitline * 1e12
+	     << " rowdec_um2=" << rowDecoder.area * 1e12
+	     << " senseamp_um2=" << senseAmp.area * 1e12
+	     << endl;
+}
+
 SubArray & SubArray::operator=(const SubArray &rhs) {
 	height = rhs.height;
 	width = rhs.width;

@@ -337,6 +337,7 @@ void Result::print(int indent) {
 			<< cell->area * tech->featureSize * tech->featureSize * bank->capacity / bank->numRowMat
 			/ bank->numColumnMat / bank->numRowSubarray / bank->numColumnSubarray
 			/ bank->mat.subarray.area * 100 << "%)" <<endl;
+	bank->mat.subarray.PrintAreaBreakdown();	/* stderr per-component areas for opt/calibrate_periph.py */
     if (bank->stackedDieCount > 1 && bank->partitionGranularity == 0) {
         cout << string(indent, ' ') << " |--- TSV Area      = " << TO_SQM(bank->tsvArray.area) << endl;
     } else if (bank->stackedDieCount > 1 && bank->partitionGranularity == 1) {

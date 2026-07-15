@@ -23,6 +23,7 @@ public:
 
 	/* Functions */
 	void PrintProperty();
+	void PrintAreaBreakdown();	/* stderr per-component area dump for opt/calibrate_periph.py */
 	void Initialize(long long _numRow, long long _numColumn, bool _multipleRowPerSet, bool _split,
 			int _muxSenseAmp, bool _internalSenseAmp, int _muxOutputLev1, int _muxOutputLev2,
 			BufferDesignTarget _areaOptimizationLevel, int _num3DLevels);
