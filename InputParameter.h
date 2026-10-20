@@ -103,9 +103,13 @@ public:
 	int maxIsGlobalWireLowSwing;		/* This one is actually boolean */
 
     int partitionGranularity;
-    int localTsvProjection;  // 0 -- ITRS, 1 -- Industry Reported
-    int globalTsvProjection; // 0 -- ITRS, 1 -- Industry Reported
+    int localTsvProjection;  // 0 -- ITRS, 1 -- Industry Reported, 2 -- custom
+    int globalTsvProjection; // 0 -- ITRS, 1 -- Industry Reported, 2 -- custom
     double tsvRedundancy; 
+    /* Custom TSV (projection 2), per die crossing; unset (<= 0) by default */
+    double customTsvPitch;       // um
+    double customTsvResistance;  // ohm
+    double customTsvCapacitance; // F
 
     int monolithicStackCount; // 1 or 2 valid (2 for HRRAM-style design)
 

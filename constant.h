@@ -75,6 +75,8 @@
 
 #define MAX_NUMBER_GATES_STAGE 20
 #define NUMBER_INTERCONNECT_PROJECTION_TYPES 2 /* Conservative or Aggressive */
+#define NUM_TSV_PROJECTIONS 3 /* 0: ITRS, 1: industry reported, 2: custom (input file) */
+#define CUSTOM_TSV_PROJECTION 2
 #define fopt 4.0
 
 const double BULK_CU_RESISTIVITY = 0.018; //ohm-micron

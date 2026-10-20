@@ -10,6 +10,7 @@
 #include "Technology.h"
 #include "constant.h"
 #include <math.h>
+#include <assert.h>
 
 Technology::Technology() {
 	// TODO Auto-generated constructor stub
@@ -2014,11 +2015,22 @@ void Technology::SetLayerCount(InputParameter *inputParameter, int layers)
     tsv_parasitic_cap[1][1] = tsv_capacitance(length_value, tsv_diameter[1][1], tsv_pitch[1][1], tsv_dielec_thickness[1][1], tsv_liner_dielectric_constant[1][1], tsv_depletion_width[1][1]);
     tsv_occupation_area[1][1] = tsv_area(tsv_pitch[1][1]);
 
+    //Custom TSV: per-crossing values from the input file, scaled by layers like the TSV length above
+    for (int i = 0; i < NUMBER_INTERCONNECT_PROJECTION_TYPES; i++) {
+        tsv_parasitic_res[i][CUSTOM_TSV_PROJECTION] = inputParameter->customTsvResistance * layers;
+        tsv_parasitic_cap[i][CUSTOM_TSV_PROJECTION] = inputParameter->customTsvCapacitance * layers;
+        tsv_occupation_area[i][CUSTOM_TSV_PROJECTION] = tsv_area(inputParameter->customTsvPitch);
+    }
+
     //Finalize TSV parameters in tech pointer
     int local_ic_proj_type = WireTypeToTSVType(inputParameter->maxLocalWireType);
     int global_ic_proj_type = WireTypeToTSVType(inputParameter->maxGlobalWireType);
     int tsv_is_subarray_type = inputParameter->localTsvProjection;
     int tsv_os_bank_type = inputParameter->globalTsvProjection;
+    assert(tsv_is_subarray_type >= 0 && tsv_is_subarray_type < NUM_TSV_PROJECTIONS);
+    assert(tsv_os_bank_type >= 0 && tsv_os_bank_type < NUM_TSV_PROJECTIONS);
+    if (tsv_is_subarray_type == CUSTOM_TSV_PROJECTION || tsv_os_bank_type == CUSTOM_TSV_PROJECTION)
+        assert(inputParameter->customTsvPitch > 0 && inputParameter->customTsvResistance > 0 && inputParameter->customTsvCapacitance > 0);
 
     //for (int i=0; i < 2; i++) {
     //    for (int j=0; j < 2; j++) {

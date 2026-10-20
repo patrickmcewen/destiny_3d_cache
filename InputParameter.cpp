@@ -92,6 +92,7 @@ InputParameter::InputParameter() {
     localTsvProjection = 1; /* 0: ITRS aggressive, 1: Industrial conservative */
     globalTsvProjection = 1; /* 0: ITRS aggressive, 1: Industrial conservative */
     tsvRedundancy = 1.5;
+    customTsvPitch = customTsvResistance = customTsvCapacitance = -1;
 
     monolithicStackCount = 1;
 
@@ -612,6 +613,22 @@ void InputParameter::ReadInputParameterFromFile(const std::string & inputFile) {
 
         if (!strncmp("-TSVRedundancy", line, strlen("-TSVRedundancy"))) {
             sscanf(line, "-TSVRedundancy: %lf", &tsvRedundancy);
+            continue;
+        }
+
+        if (!strncmp("-CustomTSVPitch", line, strlen("-CustomTSVPitch"))) {
+            sscanf(line, "-CustomTSVPitch (um): %lf", &customTsvPitch);
+            continue;
+        }
+
+        if (!strncmp("-CustomTSVResistance", line, strlen("-CustomTSVResistance"))) {
+            sscanf(line, "-CustomTSVResistance (ohm): %lf", &customTsvResistance);
+            continue;
+        }
+
+        if (!strncmp("-CustomTSVCapacitance", line, strlen("-CustomTSVCapacitance"))) {
+            sscanf(line, "-CustomTSVCapacitance (fF): %lf", &customTsvCapacitance);
+            customTsvCapacitance *= 1e-15;
             continue;
         }
 
